@@ -11,7 +11,7 @@ md.use(miw({ uriSuffix: ".md" }));
 md.use(mk);
 
 const Note = (note) =>
-  h("div", { class: "card border-dark note-card" }, [
+  h("div", { class: "card border-secondary note-card" }, [
     h("div", { class: "card-body" }, [
       h(
         "p",
@@ -90,7 +90,7 @@ module.exports.NotesView = (state) =>
       h("div", { class: "row" }, [
         h(
           "div",
-          { class: "col" },
+          { class: "col-md-9" },
           h("div", { class: "notes-view-container" }, CardsView(state))
         ),
         h("div", { class: "col-md-3" }, SideBar(state)),

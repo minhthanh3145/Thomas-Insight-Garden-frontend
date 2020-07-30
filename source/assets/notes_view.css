@@ -6,6 +6,7 @@
 }
 
 .notes-view-container {
+  min-width: 100%;
   overflow: auto;
 }
 
@@ -30,7 +31,7 @@
 
 .info-pane {
   padding-right: 70px;
-  color: blue;
+  color: black;
 }
 
 .error {
@@ -47,10 +48,12 @@
   height: 100%;
   width: 100%;
   z-index: 100;
-  background-color: #5c7080;
+  background-color: azure;
+  overflow-y: auto;
 }
 
 .search-result {
+  background-color: aliceblue;
   padding-left: 10px;
   border-bottom: 1px solid #e1e8ed;
   overflow-y: auto;
@@ -62,13 +65,19 @@
   padding-left: 10px;
   height: 100%;
   overflow-y: auto;
+  padding-bottom: 20px;
 }
 
 .search-result-item,
 .backlink-item {
   max-width: 300px;
-  color: #e1e8ed;
+  color: black;
   display: block;
   padding: 5px;
   margin-top: 5px;
+}
+
+.search-result-item:hover,
+.backlink-item:hover {
+  color: black;
 }

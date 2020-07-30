@@ -18565,7 +18565,7 @@ md.use(_markdownItKatex.default);
 
 var Note = function Note(note) {
   return (0, _hyperapp.h)("div", {
-    class: "card border-dark note-card"
+    class: "card border-secondary note-card"
   }, [(0, _hyperapp.h)("div", {
     class: "card-body"
   }, [(0, _hyperapp.h)("p", {
@@ -18643,7 +18643,7 @@ module.exports.NotesView = function (state) {
   }, (0, _hyperapp.h)("div", {
     class: "row"
   }, [(0, _hyperapp.h)("div", {
-    class: "col"
+    class: "col-md-9"
   }, (0, _hyperapp.h)("div", {
     class: "notes-view-container"
   }, CardsView(state))), (0, _hyperapp.h)("div", {
@@ -19984,7 +19984,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62584" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51412" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
