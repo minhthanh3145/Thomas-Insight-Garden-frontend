@@ -7,7 +7,7 @@ import mk from "markdown-it-katex";
 import { NoteController } from "../core/NoteController";
 
 let md = new MarkdownIt();
-md.use(miw({ uriSuffix: ".md" }));
+md.use(miw({ uriSuffix: ".md", relativeBaseURL: "/notes/" }));
 md.use(mk);
 
 const Note = (note) =>
@@ -67,7 +67,7 @@ const SearchResult = (state) =>
     "div",
     { class: "search-result" },
     state.searchResults.map((res) =>
-      h("a", { class: "search-result-item", href: `/${res}` }, text(res))
+      h("a", { class: "search-result-item", href: `/notes/${res}` }, text(res))
     )
   );
 const BackLink = (state) =>
@@ -77,7 +77,7 @@ const BackLink = (state) =>
       class: "backlink",
     },
     state.backLinks.map((link) =>
-      h("a", { class: "backlink-item", href: `/${link}` }, text(link))
+      h("a", { class: "backlink-item", href: `/notes/${link}` }, text(link))
     )
   );
 

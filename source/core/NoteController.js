@@ -2,10 +2,9 @@ import { ApiProvider } from "../api/ApiProvider";
 
 const getNote = (props) => [
   (dispatch, props) => {
-    console.log(props.noteTitle);
-    ApiProvider.GetNote(props.noteTitle)
+    let noteTitle = props.noteTitle;
+    ApiProvider.GetNote(noteTitle)
       .then((note) => {
-        console.log(note);
         dispatch(props.action, note);
       })
       .catch((err) => {
@@ -39,7 +38,6 @@ const SearchForNoteEffect = (props) => [
     }
     doIt = setTimeout(function () {
       ApiProvider.SearchForNote(props.searchTerm).then((result) => {
-        console.log(result);
         dispatch(props.action, result);
       });
     }, 500);

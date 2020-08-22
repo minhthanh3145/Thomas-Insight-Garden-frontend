@@ -18461,10 +18461,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var getNote = function getNote(props) {
   return [function (dispatch, props) {
-    console.log(props.noteTitle);
+    var noteTitle = props.noteTitle;
 
-    _ApiProvider.ApiProvider.GetNote(props.noteTitle).then(function (note) {
-      console.log(note);
+    _ApiProvider.ApiProvider.GetNote(noteTitle).then(function (note) {
       dispatch(props.action, note);
     }).catch(function (err) {
       dispatch(props.error);
@@ -18498,7 +18497,6 @@ var SearchForNoteEffect = function SearchForNoteEffect(props) {
 
     doIt = setTimeout(function () {
       _ApiProvider.ApiProvider.SearchForNote(props.searchTerm).then(function (result) {
-        console.log(result);
         dispatch(props.action, result);
       });
     }, 500);
@@ -18559,7 +18557,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var md = new _markdownIt.default();
 md.use((0, _markdownWikiLinks.default)({
-  uriSuffix: ".md"
+  uriSuffix: ".md",
+  relativeBaseURL: "/notes/"
 }));
 md.use(_markdownItKatex.default);
 
@@ -18619,7 +18618,7 @@ var SearchResult = function SearchResult(state) {
   }, state.searchResults.map(function (res) {
     return (0, _hyperapp.h)("a", {
       class: "search-result-item",
-      href: "/".concat(res)
+      href: "/notes/".concat(res)
     }, (0, _hyperapp.text)(res));
   }));
 };
@@ -18630,7 +18629,7 @@ var BackLink = function BackLink(state) {
   }, state.backLinks.map(function (link) {
     return (0, _hyperapp.h)("a", {
       class: "backlink-item",
-      href: "/".concat(link)
+      href: "/notes/".concat(link)
     }, (0, _hyperapp.text)(link));
   }));
 };
@@ -19895,7 +19894,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var router = function router(dispatch) {
-  (0, _page.default)("/*", function (context) {
+  // Default note
+  (0, _page.default)("/", "/notes/Map of content.md");
+  (0, _page.default)("/notes/*", function (context) {
     var noteTitle = context.path;
     dispatch(function (state) {
       return [state, _NoteController.NoteController.GetNote({
@@ -19984,7 +19985,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51412" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50906" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -2,7 +2,10 @@ import page from "page";
 import { NoteController } from "../core/NoteController";
 
 const router = (dispatch) => {
-  page("/*", (context) => {
+  // Default note
+  page("/", "/notes/Map of content.md");
+
+  page("/notes/*", (context) => {
     let noteTitle = context.path;
     dispatch((state) => [
       state,
