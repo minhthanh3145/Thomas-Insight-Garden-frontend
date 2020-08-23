@@ -1,20 +1,17 @@
-.dashboard-header .navbar {
-  padding: 0px;
-  background-color: white;
-  border-bottom: 1px solid #e6e6f2;
-  -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
-  box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
-  min-height: 60px;
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  z-index: 10000;
+body {
+  margin: 0px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  background-color: rgb(250, 250, 250);
 }
-
-.navbar-brand {
-  padding: 11px 20px;
-  font-size: 30px;
-  font-weight: 700;
+.subscribe-container {
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
 }
 
 body {
@@ -104,6 +101,30 @@ body {
 .search-result-item:hover,
 .backlink-item:hover {
   color: black;
+}
+
+.dashboard-header .navbar {
+  padding: 0px;
+  background-color: white;
+  border-bottom: 1px solid #e6e6f2;
+  -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+  box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+  min-height: 60px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 10000;
+}
+
+.navbar-brand {
+  padding: 11px 20px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.body-container {
+  width: 100%;
+  height: 100%;
 }
 
 

@@ -1,40 +1,57 @@
 import page from "page";
 import { NoteController } from "../core/NoteController";
+import { fromEntries } from "../utility/object";
 
-const router = (dispatch) => {
+const router = (dispatch, { routes }) => {
   // Default note
-  page("/", "/notes/Map of content.md");
+  page("/", (context) => {
+    console.log(context.params);
+    page.redirect("/notes/Map of content.md");
+  });
 
+  // Route to normal pages
+  const normalizedRoutes = normalize(routes);
+  const paths = Object.keys(normalizedRoutes);
+  paths.forEach((path) => {
+    const route = normalizedRoutes[path];
+    page(path, (context) => {
+      dispatch(route, context.params);
+    });
+  });
+  // Route to a special action that adds a note
   page("/notes/*", (context) => {
     let noteTitle = context.path;
-    dispatch((state) => [
-      state,
-      NoteController.GetNote({
-        noteTitle: noteTitle,
-        action: (state, note) =>
-          note
-            ? [
-                {
-                  ...state,
-                  error: false,
-                  message: "Welcome to my notes",
-                  notes: NoteController.AddNote(state.notes, {
-                    title: note.title,
-                    content: note.content,
+    dispatch(
+      (state) => [
+        state,
+        NoteController.GetNote({
+          noteTitle: noteTitle,
+          action: (state, note) =>
+            note
+              ? [
+                  {
+                    ...state,
+                    error: false,
+                    message: "Welcome to my notes",
+                    notes: NoteController.AddNote(state.notes, {
+                      title: note.title,
+                      content: note.content,
+                    }),
+                  },
+                  NoteController.ScrollToBottom({
+                    action: (state) => state,
                   }),
-                },
-                NoteController.ScrollToBottom({
-                  action: (state) => state,
-                }),
-              ]
-            : state,
-        error: (state) => ({
-          ...state,
-          error: true,
-          message: "This note is not public !",
+                ]
+              : state,
+          error: (state) => ({
+            ...state,
+            error: true,
+            message: "This note is not public !",
+          }),
         }),
-      }),
-    ]);
+      ],
+      context.params
+    );
   });
   page.start();
 
@@ -43,4 +60,7 @@ const router = (dispatch) => {
   };
 };
 
-module.exports.RoutePages = () => [router, {}];
+const normalize = (routes) =>
+  fromEntries(routes.map(([path, pageAction]) => [path, pageAction(path)]));
+
+export const RoutePages = ({ routes, lazy }) => [router, { routes, lazy }];

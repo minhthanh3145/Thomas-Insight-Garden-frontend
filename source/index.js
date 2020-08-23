@@ -1,18 +1,18 @@
 import { h, app } from "hyperapp";
-import { NotesView } from "./view/notes_view";
+import { LayoutView } from "./view/layout_view";
 import { RoutePages } from "./router/router";
+import { routes } from "./router/index";
+
+const initState = {
+  backLinks: [],
+  searchResults: [],
+  error: false,
+  message: "Welcome to my notes",
+  notes: [],
+};
 
 app({
-  init: () => [
-    {
-      backLinks: [],
-      searchResults: [],
-      error: false,
-      message: "Welcome to my notes",
-      notes: [],
-    },
-    RoutePages({}),
-  ],
-  view: NotesView,
+  init: () => [initState, RoutePages({ routes })],
+  view: LayoutView,
   node: document.getElementById("hyperapp"),
 });

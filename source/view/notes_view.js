@@ -1,5 +1,4 @@
 import { h, text } from "hyperapp";
-import { NavigationBar } from "./widgets/navigation_bar";
 import "../assets/notes_view.css";
 import MarkdownIt from "markdown-it";
 import miw from "../utility/markdown-wiki-links";
@@ -48,13 +47,6 @@ const SearchInput = (state) =>
     })
   );
 
-const InformationPane = (state) =>
-  h(
-    "div",
-    { class: "info-pane " + (state.error ? "error" : "") },
-    text(state.message)
-  );
-
 const SideBar = (state) =>
   h("div", { class: "side-bar" }, [
     SearchInput(state),
@@ -81,19 +73,19 @@ const BackLink = (state) =>
     )
   );
 
+const Notes = (state) =>
+  h(
+    "div",
+    { class: "container-fluid" },
+    h("div", { class: "row" }, [
+      h(
+        "div",
+        { class: "col-md-9" },
+        h("div", { class: "notes-view-container" }, CardsView(state))
+      ),
+      h("div", { class: "col-md-3" }, SideBar(state)),
+    ])
+  );
+
 module.exports.NotesView = (state) =>
-  h("div", { class: "body-container" }, [
-    NavigationBar(state, [InformationPane(state)]),
-    h(
-      "div",
-      { class: "container-fluid" },
-      h("div", { class: "row" }, [
-        h(
-          "div",
-          { class: "col-md-9" },
-          h("div", { class: "notes-view-container" }, CardsView(state))
-        ),
-        h("div", { class: "col-md-3" }, SideBar(state)),
-      ])
-    ),
-  ]);
+  h("div", { class: "body-container" }, [Notes(state)]);
