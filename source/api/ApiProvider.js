@@ -2,17 +2,6 @@ let protocol = "http";
 let host = "localhost:3000";
 let endpoint = `${protocol}://${host}`;
 
-const uploadDocumentHttpEffectConfigs = (userId, token, formData, docName) => ({
-  url: `${endpoint}/translation/create_translation_document?user_id=${userId}&name=${docName}`,
-  options: {
-    headers: new Headers({
-      Authorization: `Bearer ${token}`,
-    }),
-    method: "POST",
-    body: formData,
-  },
-});
-
 const searchForNote = (titleTerm) =>
   $.ajax({
     url: `${endpoint}/search_note?note_title=${titleTerm}`,
@@ -35,7 +24,17 @@ const getNote = (title) =>
     },
   });
 
+const addContactToEmailList = (email, name) =>
+  $.ajax({
+    url: `${endpoint}/add_to_mail_list?email=${email}&name=${name}`,
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+  });
+
+
+
 module.exports.ApiProvider = {
   GetNote: getNote,
   SearchForNote: searchForNote,
+  AddContactToEmailList: addContactToEmailList
 };

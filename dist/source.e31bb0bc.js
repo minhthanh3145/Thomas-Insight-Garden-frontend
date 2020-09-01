@@ -1799,10 +1799,54 @@ return page_js;
 
 })));
 
-},{"process":"../node_modules/process/browser.js"}],"core/SubscribeController.js":[function(require,module,exports) {
+},{"process":"../node_modules/process/browser.js"}],"api/ApiProvider.js":[function(require,module,exports) {
+var protocol = "http";
+var host = "localhost:3000";
+var endpoint = "".concat(protocol, "://").concat(host);
+
+var searchForNote = function searchForNote(titleTerm) {
+  return $.ajax({
+    url: "".concat(endpoint, "/search_note?note_title=").concat(titleTerm),
+    headers: {
+      Accept: "application/json"
+    },
+    options: {
+      method: "GET"
+    }
+  });
+};
+
+var getNote = function getNote(title) {
+  return $.ajax({
+    url: "".concat(endpoint, "/get_note?note_title=").concat(title),
+    headers: {
+      Accept: "application/json"
+    },
+    options: {
+      method: "GET"
+    }
+  });
+};
+
+var addContactToEmailList = function addContactToEmailList(email, name) {
+  return $.ajax({
+    url: "".concat(endpoint, "/add_to_mail_list?email=").concat(email, "&name=").concat(name),
+    type: "POST",
+    contentType: "application/json; charset=utf-8"
+  });
+};
+
+module.exports.ApiProvider = {
+  GetNote: getNote,
+  SearchForNote: searchForNote,
+  AddContactToEmailList: addContactToEmailList
+};
+},{}],"core/SubscribeController.js":[function(require,module,exports) {
 "use strict";
 
 var _page = _interopRequireDefault(require("page"));
+
+var _ApiProvider = require("../api/ApiProvider");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1832,17 +1876,41 @@ var goBackToNotesEffect = function goBackToNotesEffect(props) {
 
 var subscribe = function subscribe(state) {
   return [state, subscribeEffect({
-    action: function action(state) {
+    email: state.email,
+    name: state.name,
+    action: function action(state, msg) {
       return _objectSpread(_objectSpread({}, state), {}, {
         message: "You are subscribed !"
+      });
+    },
+    error: function error(state, msg) {
+      return _objectSpread(_objectSpread({}, state), {}, {
+        message: msg
       });
     }
   })];
 };
 
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 var subscribeEffect = function subscribeEffect(props) {
   return [function (dispatch, props) {
-    dispatch(props.action);
+    var email = props.email;
+    var name = props.name;
+
+    if (validateEmail(email)) {
+      _ApiProvider.ApiProvider.AddContactToEmailList(email, name).then(function (res) {
+        console.log(res);
+        dispatch(props.action, "You are subscribed !");
+      }).catch(function (err) {
+        dispatch(props.error, err.message);
+      });
+    } else {
+      dispatch(props.error, "Email is invalid");
+    }
   }, props];
 };
 
@@ -1850,7 +1918,7 @@ module.exports.SubscribeController = {
   GoBackToNotes: goBackToNotes,
   Subscribe: subscribe
 };
-},{"page":"../node_modules/page/page.js"}],"view/subscribe_view.js":[function(require,module,exports) {
+},{"page":"../node_modules/page/page.js","../api/ApiProvider":"api/ApiProvider.js"}],"view/subscribe_view.js":[function(require,module,exports) {
 "use strict";
 
 var _hyperapp = require("hyperapp");
@@ -1881,9 +1949,23 @@ var subscribePage = function subscribePage(state) {
       return _SubscribeController.SubscribeController.GoBackToNotes;
     }
   }, (0, _hyperapp.text)("Back to the orchard"))), (0, _hyperapp.h)("input", {
-    class: "form-control",
+    class: "form-control subscribe-input",
     type: "text",
-    placeholder: "Email"
+    placeholder: "Name",
+    oninput: function oninput(state, event) {
+      return [_objectSpread(_objectSpread({}, state), {}, {
+        name: event.target.value
+      })];
+    }
+  }), (0, _hyperapp.h)("input", {
+    class: "form-control subscribe-input",
+    type: "text",
+    placeholder: "Email",
+    oninput: function oninput(state, event) {
+      return [_objectSpread(_objectSpread({}, state), {}, {
+        email: event.target.value
+      })];
+    }
   })]), (0, _hyperapp.h)("button", {
     class: "btn btn-primary",
     onclick: function onclick(state) {
@@ -19776,53 +19858,7 @@ module.exports = function math_plugin(md, options) {
     md.renderer.rules.math_block = blockRenderer;
 };
 
-},{"katex":"../node_modules/katex/katex.js"}],"api/ApiProvider.js":[function(require,module,exports) {
-var protocol = "http";
-var host = "localhost:3000";
-var endpoint = "".concat(protocol, "://").concat(host);
-
-var uploadDocumentHttpEffectConfigs = function uploadDocumentHttpEffectConfigs(userId, token, formData, docName) {
-  return {
-    url: "".concat(endpoint, "/translation/create_translation_document?user_id=").concat(userId, "&name=").concat(docName),
-    options: {
-      headers: new Headers({
-        Authorization: "Bearer ".concat(token)
-      }),
-      method: "POST",
-      body: formData
-    }
-  };
-};
-
-var searchForNote = function searchForNote(titleTerm) {
-  return $.ajax({
-    url: "".concat(endpoint, "/search_note?note_title=").concat(titleTerm),
-    headers: {
-      Accept: "application/json"
-    },
-    options: {
-      method: "GET"
-    }
-  });
-};
-
-var getNote = function getNote(title) {
-  return $.ajax({
-    url: "".concat(endpoint, "/get_note?note_title=").concat(title),
-    headers: {
-      Accept: "application/json"
-    },
-    options: {
-      method: "GET"
-    }
-  });
-};
-
-module.exports.ApiProvider = {
-  GetNote: getNote,
-  SearchForNote: searchForNote
-};
-},{}],"core/NoteController.js":[function(require,module,exports) {
+},{"katex":"../node_modules/katex/katex.js"}],"core/NoteController.js":[function(require,module,exports) {
 "use strict";
 
 var _ApiProvider = require("../api/ApiProvider");
@@ -20085,7 +20121,6 @@ var InformationPane = function InformationPane(state) {
 var routeToNormalPages = function routeToNormalPages(state) {
   var page = state.page;
   var val = page && page !== "/" && !page.startsWith("/notes");
-  console.log(page);
   return val;
 };
 
@@ -20257,7 +20292,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51334" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55788" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

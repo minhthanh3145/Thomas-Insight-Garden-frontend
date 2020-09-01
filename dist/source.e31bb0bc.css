@@ -1,9 +1,9 @@
 body {
   margin: 0px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   background-color: rgb(250, 250, 250);
 }
+
 .subscribe-container {
   padding: 100px;
   display: flex;
@@ -14,6 +14,10 @@ body {
   min-height: 100vh;
 }
 
+.subscribe-input {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 body {
   margin: 0px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
