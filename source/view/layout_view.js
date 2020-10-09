@@ -4,6 +4,7 @@ import { h, text } from "hyperapp";
 import { NavigationBar } from "./widgets/navigation_bar";
 import "../assets/layout_view.css";
 
+/** Unused */
 const SubscribeToWeeklyEmail = (state) =>
   h("a", { href: "/subscribe" }, text("Subscribe to weekly email"));
 
@@ -23,7 +24,6 @@ const routeToNormalPages = (state) => {
 module.exports.LayoutView = (state) =>
   h("div", { class: "body-container" }, [
     NavigationBar(state, [
-      SubscribeToWeeklyEmail(state),
       InformationPane(state),
     ]),
     routeToNormalPages(state) ? pages[state.page](state) : NotesView(state),
