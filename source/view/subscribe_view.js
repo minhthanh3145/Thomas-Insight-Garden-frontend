@@ -25,7 +25,18 @@ const subscribePage = (state) =>
           text("Back to the orchard")
         )
       ),
-      h("input", { class: "form-control", type: "text", placeholder: "Email" }),
+      h("input", {
+        class: "form-control subscribe-input"
+        , type: "text"
+        , placeholder: "Name"
+        , oninput: (state, event) => [({ ...state, name: event.target.value })]
+      }),
+      h("input", {
+        class: "form-control subscribe-input"
+        , type: "text"
+        , placeholder: "Email"
+        , oninput: (state, event) => [({ ...state, email: event.target.value })]
+      }),
     ]),
     h(
       "button",

@@ -17,7 +17,6 @@ const InformationPane = (state) =>
 const routeToNormalPages = (state) => {
   let page = state.page;
   let val = page && page !== "/" && !page.startsWith("/notes");
-  console.log(page);
   return val;
 };
 
