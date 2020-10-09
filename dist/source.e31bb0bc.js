@@ -20049,7 +20049,8 @@ module.exports.NavigationBar = function (state, child) {
   }, (0, _hyperapp.h)("div", {
     class: "navbar"
   }, [(0, _hyperapp.h)("a", {
-    class: "navbar-brand"
+    class: "navbar-brand",
+    href: "/"
   }, (0, _hyperapp.text)("Orchard Of Thomas"))].concat(_toConsumableArray(child))));
 };
 },{"hyperapp":"../node_modules/hyperapp/hyperapp.js","../../assets/nav_bar.css":"assets/nav_bar.css"}],"assets/layout_view.css":[function(require,module,exports) {
@@ -20134,7 +20135,7 @@ var router = function router(dispatch, _ref) {
   (0, _page.default)("/", function (context) {
     console.log(context.params);
 
-    _page.default.redirect("/notes/Map of content.md");
+    _page.default.redirect("/notes/Areas of Focus.md");
   }); // Route to normal pages
 
   var normalizedRoutes = normalize(routes);
@@ -20257,7 +20258,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51334" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50530" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

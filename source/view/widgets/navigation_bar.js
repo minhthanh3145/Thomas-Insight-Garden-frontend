@@ -6,7 +6,7 @@ module.exports.NavigationBar = (state, child) =>
     "div",
     { class: "dashboard-header" },
     h("div", { class: "navbar" }, [
-      h("a", { class: "navbar-brand" }, text("Orchard Of Thomas")),
+      h("a", { class: "navbar-brand", href: "/" }, text("Orchard Of Thomas")),
       ...child,
     ])
   );

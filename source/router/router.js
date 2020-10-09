@@ -6,7 +6,7 @@ const router = (dispatch, { routes }) => {
   // Default note
   page("/", (context) => {
     console.log(context.params);
-    page.redirect("/notes/Map of content.md");
+    page.redirect("/notes/Areas of Focus.md");
   });
 
   // Route to normal pages
