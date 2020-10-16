@@ -1,5 +1,5 @@
 let protocol = "http";
-let host = "localhost:3000";
+let host = "localhost:80";
 let localEndpoint = `${protocol}://${host}`;
 let remoteEndpoint = "https://orchard-of-thomas.openode.io";
 let endpoint = remoteEndpoint;
