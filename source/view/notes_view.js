@@ -68,9 +68,11 @@ const BackLink = (state) =>
     {
       class: "backlink",
     },
-    state.backLinks.map((link) =>
-      h("a", { class: "backlink-item", href: `/notes/${link}` }, text(link))
-    )
+    [
+      ...state.backLinks.map((link) =>
+        h("a", { class: "backlink-item", href: `/notes/${link}` }, text(link))
+      ),
+    ]
   );
 
 const Notes = (state) =>
@@ -80,7 +82,7 @@ const Notes = (state) =>
     h("div", { class: "row" }, [
       h(
         "div",
-        { class: "col-md-9" },
+        { class: "col" },
         h("div", { class: "notes-view-container" }, CardsView(state))
       ),
       h("div", { class: "col-md-3" }, SideBar(state)),
