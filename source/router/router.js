@@ -20,7 +20,6 @@ const router = (dispatch, { routes }) => {
   // Route to a special action that adds a note
   page("/notes/*", (context) => {
     let noteTitle = context.path;
-    dispatch("/");
     dispatch(
       (state) => [
         state,
