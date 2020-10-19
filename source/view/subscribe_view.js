@@ -26,16 +26,16 @@ const subscribePage = (state) =>
         )
       ),
       h("input", {
-        class: "form-control subscribe-input"
-        , type: "text"
-        , placeholder: "Name"
-        , oninput: (state, event) => [({ ...state, name: event.target.value })]
+        class: "form-control subscribe-input",
+        type: "text",
+        placeholder: "Name",
+        oninput: (state, event) => [{ ...state, name: event.target.value }],
       }),
       h("input", {
-        class: "form-control subscribe-input"
-        , type: "text"
-        , placeholder: "Email"
-        , oninput: (state, event) => [({ ...state, email: event.target.value })]
+        class: "form-control subscribe-input",
+        type: "text",
+        placeholder: "Email",
+        oninput: (state, event) => [{ ...state, email: event.target.value }],
       }),
     ]),
     h(

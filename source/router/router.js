@@ -3,11 +3,6 @@ import { NoteController } from "../core/NoteController";
 import { fromEntries } from "../utility/object";
 
 const router = (dispatch, { routes }) => {
-  // Default note
-  page("/", (context) => {
-    page.redirect("/notes/Orchard of Thomas.md");
-  });
-
   // Route to normal pages
   const normalizedRoutes = normalize(routes);
   const paths = Object.keys(normalizedRoutes);
@@ -16,41 +11,6 @@ const router = (dispatch, { routes }) => {
     page(path, (context) => {
       dispatch(route, context.params);
     });
-  });
-  // Route to a special action that adds a note
-  page("/notes/*", (context) => {
-    let noteTitle = context.path;
-    dispatch(
-      (state) => [
-        state,
-        NoteController.GetNote({
-          noteTitle: noteTitle,
-          action: (state, note) =>
-            note
-              ? [
-                  {
-                    ...state,
-                    error: false,
-                    message: "Welcome to my notes",
-                    notes: NoteController.AddNote(state.notes, {
-                      title: note.title,
-                      content: note.content,
-                    }),
-                  },
-                  NoteController.ScrollToBottom({
-                    action: (state) => state,
-                  }),
-                ]
-              : state,
-          error: (state) => ({
-            ...state,
-            error: true,
-            message: "This note is not public !",
-          }),
-        }),
-      ],
-      context.params
-    );
   });
   page.start();
 

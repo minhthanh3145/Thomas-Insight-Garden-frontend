@@ -89,5 +89,46 @@ const Notes = (state) =>
     ])
   );
 
-module.exports.NotesView = (state) =>
+const notesPage = (state) =>
   h("div", { class: "body-container" }, [Notes(state)]);
+
+const notesInit = (page) => (state, { noteTitle: noteTitle }) => {
+  console.log(noteTitle);
+  if (!noteTitle) {
+    noteTitle = "/notes/Orchard of Thomas.md";
+  }
+  console.log(noteTitle);
+  return (state) => [
+    state,
+    NoteController.GetNote({
+      noteTitle: noteTitle,
+      action: (state, note) =>
+        note
+          ? [
+              {
+                ...state,
+                error: false,
+                message: "Welcome to my notes",
+                notes: NoteController.AddNote(state.notes, {
+                  title: note.title,
+                  content: note.content,
+                }),
+              },
+              NoteController.ScrollToBottom({
+                action: (state) => state,
+              }),
+            ]
+          : state,
+      error: (state) => ({
+        ...state,
+        error: true,
+        message: "This note is not public !",
+      }),
+    }),
+  ];
+};
+
+module.exports.NotesView = {
+  NotesInit: notesInit,
+  NotesPage: notesPage,
+};
