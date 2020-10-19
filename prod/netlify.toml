@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/*"
-  to = "https://orchard-of-thomas.netlify.app"
+  to = "/notes"
   status = 200
   force = true
   headers = {X-From = "Netlify"}
