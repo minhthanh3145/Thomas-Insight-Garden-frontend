@@ -23,8 +23,6 @@ const routeToNormalPages = (state) => {
 
 module.exports.LayoutView = (state) =>
   h("div", { class: "body-container" }, [
-    NavigationBar(state, [
-      InformationPane(state),
-    ]),
+    NavigationBar(state, [InformationPane(state)]),
     routeToNormalPages(state) ? pages[state.page](state) : NotesView(state),
   ]);

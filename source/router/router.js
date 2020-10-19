@@ -5,7 +5,6 @@ import { fromEntries } from "../utility/object";
 const router = (dispatch, { routes }) => {
   // Default note
   page("/", (context) => {
-    console.log(context.params);
     page.redirect("/notes/Orchard of Thomas.md");
   });
 
