@@ -2,7 +2,7 @@ let protocol = "http";
 let host = "localhost:80";
 let localEndpoint = `${protocol}://${host}`;
 let remoteEndpoint = "https://orchard-of-thomas.openode.io";
-let endpoint = localEndpoint;
+let endpoint = remoteEndpoint;
 
 const searchForNote = (titleTerm) =>
   $.ajax({
