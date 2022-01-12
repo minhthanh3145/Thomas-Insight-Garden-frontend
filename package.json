@@ -10,7 +10,7 @@
     "hyperapp": "^2.0.8",
     "hyperapp-fx": "^2.0.0-beta.1",
     "jquery": "^3.5.1",
-    "markdown-it": "^11.0.0",
+    "markdown-it": "^12.3.2",
     "markdown-it-katex": "^2.0.3",
     "markdown-it-wikilinks": "^1.0.1",
     "node-mailjet": "^3.3.1",
